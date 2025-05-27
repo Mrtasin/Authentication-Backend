@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
     const options = {
       email: newUser.email,
       token: token,
-      subject: "Verification",
+      subject: "Email Verification",
       route: "verify",
     };
 
@@ -237,8 +237,6 @@ const forgotPassword = async (req, res) => {
       });
     }
 
-    console.log(user);
-
     const token = crypto.randomBytes(32).toString("hex");
 
     if (!token) {
@@ -371,7 +369,7 @@ const resetPassword = async (req, res) => {
 
     user.password = password;
     user.resetPasswordToken = undefined;
-    user.passwordExpried = new Date(0);
+    user.passwordExpried = undefined;
 
     await user.save();
 
