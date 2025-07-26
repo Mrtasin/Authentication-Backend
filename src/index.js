@@ -12,17 +12,19 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.BASE_URL,
+    origin: "http://localhost:5173",
     credentials: true,
-    methods: ["GET", "POST", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Contant-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT","DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Accept"],
+    exposedHeaders: ["Set-Cookie", "*"],
   })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 app.use(cookieParser());
 
-await db();
+ db();
 
 app.get("/", (req, res) => {
   res.send("Hello Dosto");
